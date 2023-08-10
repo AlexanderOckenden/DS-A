@@ -1,0 +1,44 @@
+Alright, let's break down the function `OptPower`:
+
+```cpp
+int OptPower(int a, int b)
+{
+```
+**Purpose:** The function `OptPower` aims to calculate the value of `a` raised to the power of `b` (a^b) using a divide-and-conquer approach which results in an efficient algorithm compared to naive power computation.
+
+1. **Parameter Declaration:** `int a, int b`
+   - `a` is the base number.
+   - `b` is the exponent (power) to which the base number `a` will be raised.
+
+```cpp
+    if(b==0) return 1;
+```
+2. **Base Case:** If the exponent `b` is 0, the result is 1 (since any number raised to the power of 0 is 1). This line checks for that condition and immediately returns 1 if it's true.
+
+```cpp
+    int temp;
+```
+3. **Variable Declaration:** Declare an integer variable named `temp`. This variable will store the intermediate result of the calculation.
+
+```cpp
+    temp = OptPower(a, b/2);
+```
+4. **Divide:** The function calls itself (`OptPower`) recursively with half of the current exponent value (`b/2`). This step is the "divide" part of the divide-and-conquer strategy. By doing this, the function will compute the value of `a^(b/2)`.
+
+```cpp
+    int power = temp * temp;
+```
+5. **Conquer:** Here, we multiply the intermediate result `temp` (which holds the value of `a^(b/2)`) by itself to get the value of `a^b` when `b` is even. This step computes `a^b` for even values of `b` without computing the entire sequence.
+
+```cpp
+    if((b%2) != 0)
+        return a*power; /// Odd Number
+```
+6. **Odd Exponent Handling:** If `b` is odd (determined by `b%2`), then the value of `a^b` will be `a` times the previously calculated `power` value. This is because \(a^{odd}\) can be represented as \(a \times a^{even}\). So, in case of an odd exponent, we multiply the base `a` with the computed value of `power` and return that result.
+
+```cpp
+    return power; /// Even Number
+```
+7. **Even Exponent Handling:** If `b` is even, then the result is simply the previously computed `power` value. We return that value directly.
+
+Overall, this function uses the properties of exponents and a recursive strategy to efficiently compute the power of a number. This divide-and-conquer approach reduces the time complexity of the power calculation compared to a simple iterative method.
